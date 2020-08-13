@@ -8,6 +8,7 @@
     margin-left: auto;
     color: white;
     text-align: right !important;
+    border-radius: 900px;
 }
 
 .message__userCard {
@@ -17,3 +18,4 @@
 .message__guestCard {
     background-color: #e9e9eb !important;
 }
+

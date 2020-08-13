@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import db from './firebase';
 import firebase from 'firebase';
-import { Button, FormControl, InputLabel, Input } from '@material-ui/core';
+import FlipMove from 'react-flip-move';
+import SendIcon from '@material-ui/icons/Send';
+import { IconButton } from '@material-ui/core';
+import { FormControl, InputLabel, Input } from '@material-ui/core';
 import './App.css';
 
 function App() {
@@ -22,9 +25,9 @@ function App() {
     db.collection('messages')
     .orderBy('timestamp', 'desc')
     .onSnapshot(snapshot => {
-      setMessages(snapshot.docs.map(doc => doc.data()))
+      setMessages(snapshot.docs.map(doc => 
+        ({id: doc.id , message:doc.data()})))
     })
-    console.log(messages)
   }, [])
 
   // handle submit
@@ -42,30 +45,38 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Helloooo</h1>
-      <h2>Welcome {username}</h2>
+      <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yh/r/p6_sqYxQ9ch.png" alt="logo"/>
+      <h4>Welcome {username}</h4>
 
       <div className="app__input">
-        <form>
-          <FormControl>
+        <form className='app__form'>
+          <FormControl className="app__formControl">
             <InputLabel >Enter a messege</InputLabel>
-            <Input value={input} onChange={event => setInput(event.target.value)}/>
-            <Button 
+            <Input className='app__input' value={input} onChange={event => setInput(event.target.value)}/>
+
+            <IconButton
               disabled={!input}
               variant='contained' 
               color='primary' 
-              type='submit' 
-              onClick={sendMessege}>
-                send
-              </Button>
+              type='submit'
+              onClick={sendMessege}
+              className="app__iconButton"
+            >
+            <SendIcon />
+            </IconButton>
+
+            
           </FormControl>
         </form>
       </div>
+      <FlipMove>
       {
-        messages.map(message => (
-          <Message username={username} text={message}/>
+        // messages es un array de message que es un objeto con un campo id y un campo message
+        messages.map(({ id, message }) => (
+          <Message key={id} username={username} text={message}/>
         ))
       }
+      </FlipMove>
     </div>
   );
 }

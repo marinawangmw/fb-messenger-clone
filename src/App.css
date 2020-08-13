@@ -2,6 +2,33 @@
   text-align: center;
 }
 
+img {
+  height: 150px;
+  object-fit: contain;
+}
+
+.app__form {
+  padding: 20px;
+  position: fixed;
+  bottom: 20px;
+  z-index: 1;  /* everything is 0, if you give it a 1, traerlo para adelante */
+  width: 90%;
+  background-color: #e9e9eb;
+  margin: 20px;
+}
+
+.app__formControl {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+.app__input {
+  flex: 1;
+}
+
+.app__iconButton {
+  flex: 0;
+}
 
 
 
